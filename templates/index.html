@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR code</title>
+</head>
+<body>
+    <dev class="title">
+        <h1>QR Code Generator</h1>
+        <h2>Insert a link bellow to generate a QR Code</h2>
+    </dev>
+    <div class="form-container">
+        <form action="/" method="POST" class="qr-form">
+            {{ csrf_token }}
+            <input type="text" name="link" placeholder="Enter your URL here..." class="input-field">
+            <button type="submit" class="generate-btn">Generate QR Code</button>
+        </form>
+    </div>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        .qr-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .input-field {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #007bff;
+        }
+
+        .generate-btn {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .generate-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .generated {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+{% if data %}
+    <div class="generated">
+        <img src="{{data}}" alt="">
+        <p>Here is the QR code we generated for you</p>
+        <a href="/download?link={{ link }}">
+            <button type="button" class="generate-btn">Download QR</button>
+        </a>
+    </div>
+    {% endif %}
+</body>
+</html>
